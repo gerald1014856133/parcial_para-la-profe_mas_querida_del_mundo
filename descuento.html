@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Descuento por Compra</title>
+    <style>
+        body {
+            background-color: yellow;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        .container {
+            border: 2px solid red;
+            display: inline-block;
+            padding: 20px;
+            background-color: white;
+        }
+        input {
+            margin-bottom: 10px;
+        }
+        button {
+            padding: 10px;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Calculadora de Descuento</h1>
+    <div class="container">
+        <p>Ingrese el monto de la compra</p>
+        <input type="number" id="monto" placeholder="Monto de la compra">
+        <br>
+        <button onclick="calcularDescuento()">Calcular</button>
+        <div class="result" id="resultado"></div>
+    </div>
+
+    <script>
+        function calcularDescuento() {
+            const montoCompra = parseFloat(document.getElementById('monto').value);
+            const montoLimite = 100000;
+            const descuentoPorcentaje = 0.20;
+
+            if (isNaN(montoCompra) || montoCompra <= 0) {
+                document.getElementById('resultado').textContent = "Por favor, ingrese un monto válido.";
+                return;
+            }
+
+            let montoFinal;
+
+            if (montoCompra > montoLimite) {
+                const descuento = montoCompra * descuentoPorcentaje;
+                montoFinal = montoCompra - descuento;
+                document.getElementById('resultado').innerHTML = 
+                    `El monto original es: ${montoCompra.toLocaleString()}.<br>Se aplica un 20% de descuento (${descuento.toLocaleString()}).<br>El monto final es: ${montoFinal.toLocaleString()}.`;
+            } else {
+                montoFinal = montoCompra;
+                document.getElementById('resultado').innerHTML = 
+                    `El monto de la compra es: ${montoFinal.toLocaleString()}.<br>No se aplica ningún descuento.`;
+            }
+        }
+    </script>
+</body>
+</html>

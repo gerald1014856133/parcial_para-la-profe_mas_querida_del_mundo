@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculador de Edad</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            max-width: 400px;
+        }
+        input {
+            margin-bottom: 10px;
+            width: 100%;
+            padding: 8px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Calculador de Edad</h1>
+    <label for="dia">Día:</label>
+    <input type="number" id="dia" placeholder="Día" required>
+    
+    <label for="mes">Mes:</label>
+    <input type="number" id="mes" placeholder="Mes" required>
+    
+    <label for="año">Año:</label>
+    <input type="number" id="año" placeholder="Año" required>
+    
+    <button onclick="calcularEdad()">Calcular Edad</button>
+    
+    <h2 id="resultado"></h2>
+
+    <script>
+        function calcularEdad() {
+            const dia = parseInt(document.getElementById("dia").value);
+            const mes = parseInt(document.getElementById("mes").value);
+            const año = parseInt(document.getElementById("año").value);
+
+            const fechaNacimiento = new Date(año, mes - 1, dia);
+            const hoy = new Date();
+
+            let años = hoy.getFullYear() - fechaNacimiento.getFullYear();
+            let meses = hoy.getMonth() - fechaNacimiento.getMonth();
+            let dias = hoy.getDate() - fechaNacimiento.getDate();
+
+            // Ajuste de días y meses
+            if (dias < 0) {
+                meses--;
+                const ultimoDiaMesAnterior = new Date(hoy.getFullYear(), hoy.getMonth(), 0).getDate();
+                dias += ultimoDiaMesAnterior; // Añadir días del mes anterior
+            }
+
+            if (meses < 0) {
+                años--;
+                meses += 12;
+            }
+
+            document.getElementById("resultado").innerHTML = `Su edad es: ${años} años, ${meses} meses y ${dias} días.`;
+        }
+    </script>
+
+</body>
+</html>

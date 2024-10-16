@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Descuento según la Marca de Moto</title>
+    <style>
+        body {
+            background-color: black;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        .container {
+            border: 2px solid red;
+            display: inline-block;
+            padding: 20px;
+            background-color: white;
+        }
+        input, select {
+            margin-bottom: 10px;
+        }
+        button {
+            padding: 10px;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="color: white;">Descuento según la Marca de Moto</h1>
+    <div class="container">
+        <p>Ingrese el valor de la moto</p>
+        <input type="number" id="valorMoto" placeholder="Valor de la moto">
+        <p>Seleccione la marca de la moto</p>
+        <select id="marcaMoto">
+            <option value="HONDA">Honda</option>
+            <option value="YAMAHA">Yamaha</option>
+            <option value="SUZUKI">Suzuki</option>
+            <option value="OTRA">Otra Marca</option>
+        </select>
+        <br>
+        <button onclick="calcularDescuento()">Calcular</button>
+        <div class="result" id="resultado"></div>
+    </div>
+
+    <script>
+        function calcularDescuento() {
+            const valorMoto = parseFloat(document.getElementById('valorMoto').value);
+            const marcaMoto = document.getElementById('marcaMoto').value;
+            let descuentoPorcentaje;
+
+            if (isNaN(valorMoto) || valorMoto <= 0) {
+                document.getElementById('resultado').textContent = "Por favor, ingrese un valor válido.";
+                return;
+            }
+
+            // Determinación del porcentaje de descuento según la marca
+            switch (marcaMoto) {
+                case "HONDA":
+                    descuentoPorcentaje = 0.05; // 5%
+                    break;
+                case "YAMAHA":
+                    descuentoPorcentaje = 0.08; // 8%
+                    break;
+                case "SUZUKI":
+                    descuentoPorcentaje = 0.10; // 10%
+                    break;
+                default:
+                    descuentoPorcentaje = 0.02; // 2% para otras marcas
+                    break;
+            }
+
+            const descuento = valorMoto * descuentoPorcentaje;
+            const valorFinal = valorMoto - descuento;
+
+            // Mostrar el resultado en formato HTML con saltos de línea usando <br>
+            document.getElementById('resultado').innerHTML = 
+                `El valor original de la moto es: ${valorMoto.toLocaleString()}.<br>` +
+                `Se aplica un descuento del ${(descuentoPorcentaje * 100).toLocaleString()}% (${descuento.toLocaleString()}).<br>` +
+                `El valor final es: ${valorFinal.toLocaleString()}.`;
+        }
+    </script>
+</body>
+</html>
